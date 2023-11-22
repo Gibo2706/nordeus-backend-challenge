@@ -1,6 +1,7 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.TimerTask;
 
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.Auction;
@@ -19,11 +20,13 @@ public class RefreshAuction extends TimerTask {
 	public void run() {
 		synchronized (auctions) {
 			long time = System.currentTimeMillis();
-			for (Auction a : auctions) {
+			Iterator<Auction> it = auctions.iterator();
+			while (it.hasNext()) {
+				Auction a = it.next();
 				if (time - a.getTime() > 59_700) {
 					if (a.getCurrBid() == null || time - a.getCurrBid().getTime() > 5_000) {
 						notifer.auctionFinished(a);
-						auctions.remove(a);
+						it.remove();
 					}
 				}
 			}

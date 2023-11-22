@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Timer;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -20,7 +19,7 @@ public class AuctionServiceImpl implements AuctionService {
 
 	public AuctionServiceImpl() {
 		this.auctionNotifer = new AuctionNotifierLogger();
-		this.auctions = new CopyOnWriteArrayList<>();
+		this.auctions = new LinkedList<>();
 		this.schedulerTimer = new Timer();
 		System.err.println("Pokrenut je!");
 		schedulerTimer.schedule(new AuctionGenerator(auctions, auctionNotifer), 0, 60_000);

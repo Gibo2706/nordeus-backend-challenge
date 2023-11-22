@@ -14,7 +14,6 @@ public class AuctionId {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return Integer.toString(id);
 	}
 
